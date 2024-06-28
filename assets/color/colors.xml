@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#FC4C56</color>
+    <color name="primaryColorDark">#FC4C56</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="accentLightColor">#FC4C56</color>
+    <color name="actionBarIconColor">#030104</color>
+    <color name="groupTitleColor">#030303</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_70">#EEEEEE</color>
+    <color name="gray_410">#979797</color>
+    <color
+        name="crimson_red"
+        type="material">#CF2A2A
+    </color>
+    <color name="blue0B98F9">#0B98F9</color>
+</resources>
