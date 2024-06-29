@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "my-chat-app-e43df",
+          "appId": "1:282280042549:android:d3e91bb634eaea5fa3d17c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "my-chat-app-e43df",
+          "appId": "1:282280042549:ios:d1f66671138fbd2ea3d17c",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "my-chat-app-e43df",
+          "configurations": {
+            "android": "1:282280042549:android:d3e91bb634eaea5fa3d17c",
+            "ios": "1:282280042549:ios:d1f66671138fbd2ea3d17c"
+          }
+        }
+      }
+    }
+  }
+}

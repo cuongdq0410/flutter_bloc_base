@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_skyway_example/data/models/error/app_error_data_model.dart';
-import 'package:flutter_skyway_example/data/models/error/error_data_model.dart';
+
+import 'models/error/app_error_data_model.dart';
+import 'models/error/error_item_data_model.dart';
 
 enum AppErrorType {
   network,
@@ -21,17 +22,17 @@ class AppError implements Equatable {
   final AppErrorType type;
 
   final int? headerCode;
-  final ErrorDataModel? errorDataModel;
+  final List<ErrorItemDataModel>? errors;
 
-  AppError(this.type, this.message, {int? code, ErrorDataModel? err})
+  AppError(this.type, this.message, {int? code, List<ErrorItemDataModel>? err})
       : headerCode = code,
-        errorDataModel = err;
+        errors = err;
 
   factory AppError.from(Exception error) {
     var type = AppErrorType.unknown;
     var message = '';
     int? headerCode;
-    ErrorDataModel? errorDataModel;
+    List<ErrorItemDataModel>? errors;
 
     if (error is DioException) {
       message = error.message ?? 'Error';
@@ -61,12 +62,40 @@ class AppError implements Equatable {
               type = AppErrorType.server;
 
               try {
-                final diorError = AppErrorDataModel.fromJson(
+                final apiError = AppErrorDataModel.fromJson(
                     error.response?.data as Map<String, dynamic>);
-                errorDataModel = diorError.toErrorDataModel();
+                if (apiError.message is String) {
+                  errors = [
+                    ErrorItemDataModel(errorMessage: apiError.message),
+                  ];
+                }
+                if (apiError.message is List) {
+                  errors = (apiError.message as List).map(
+                    (e) {
+                      final errorItem = ErrorItemDataModel.fromJson(
+                          e as Map<String, dynamic>);
+                      return ErrorItemDataModel(
+                        errorMessage: errorItem.errorMessage,
+                      );
+                    },
+                  ).toList();
+                } else if (apiError.message is Map) {
+                  final errorItem = ErrorItemDataModel.fromJson(
+                      apiError.message as Map<String, dynamic>);
+                  errors = [
+                    ErrorItemDataModel(
+                      errorMessage: errorItem.errorMessage,
+                    )
+                  ];
+                } else {
+                  errors = [
+                    ErrorItemDataModel(
+                      errorMessage: apiError.message.toString(),
+                    )
+                  ];
+                }
               } on Exception catch (e) {
-                errorDataModel =
-                    ErrorDataModel(errorCode: -1, message: e.toString());
+                errors = [ErrorItemDataModel(errorMessage: e.toString())];
               }
             default:
               type = AppErrorType.unknown;
@@ -89,11 +118,11 @@ class AppError implements Equatable {
       message = 'AppError: $error';
     }
 
-    return AppError(type, message, code: headerCode, err: errorDataModel);
+    return AppError(type, message, code: headerCode, err: errors);
   }
 
   @override
-  List<Object?> get props => [type, message, headerCode, errorDataModel];
+  List<Object?> get props => [type, message, headerCode, errors];
 
   @override
   bool? get stringify => true;

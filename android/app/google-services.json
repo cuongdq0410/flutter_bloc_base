@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282280042549",
+    "project_id": "my-chat-app-e43df",
+    "storage_bucket": "my-chat-app-e43df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282280042549:android:d3e91bb634eaea5fa3d17c",
+        "android_client_info": {
+          "package_name": "com.app.blocbase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOi-r_ngteJXdTwnG8B0hTafd-W6Mgy0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +9,9 @@ import 'package:flutter_skyway_example/ui/utils/keyboard_utils.dart';
 import 'package:flutter_skyway_example/ui/widget/app_navigator.dart';
 import 'package:flutter_skyway_example/ui/widget/route_define.dart';
 import 'package:flutter_skyway_example/ui/widget/toast_message/toast_message.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +21,10 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   HttpOverrides.global = MyHttpOverrides();
+  await Firebase.initializeApp(
+    name: 'my-chat-app',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
